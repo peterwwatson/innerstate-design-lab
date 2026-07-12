@@ -3,123 +3,179 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Explainer Design Lab · Round 1</title>
+<title>InnerState — explainer design candidates</title>
 <style>
   :root{
-    --bg:#06080b; --surf:#0e141c; --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
-    --ink:#eef2f8; --mut:#a3b0be; --dim:#6b7885; --outer:#4fc7c0; --inner:#e3b877;
+    --bg:#06080b; --surf:#0e141c; --surf2:#121a24;
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
+    --ink:#eef2f8; --mut:#a3b0be; --dim:#6b7885;
+    --outer:#4fc7c0; --inner:#e3b877;
     font-synthesis:none;
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:radial-gradient(1000px 700px at 80% -10%,#0d1622,transparent 60%),var(--bg);
     color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,system-ui,sans-serif;
     line-height:1.55;-webkit-font-smoothing:antialiased}
   h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
-  .wrap{max-width:1120px;margin:0 auto;padding:64px 32px 100px}
+  a{color:inherit}
+
+  /* ---- intro ---- */
+  .intro{max-width:820px;margin:0 auto;padding:56px 30px 24px}
   .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--inner);margin-bottom:16px}
-  h1{font-size:38px;line-height:1.1;max-width:20ch;margin-bottom:18px}
-  .intro{font-size:17px;color:var(--mut);max-width:66ch;margin-bottom:12px}
-  .intro b{color:var(--ink)}
-  .rules{display:flex;gap:22px;flex-wrap:wrap;margin:26px 0 44px;font-size:13px;color:var(--dim)}
-  .rules span{display:inline-flex;gap:8px;align-items:center}
+  .intro h1{font-size:34px;line-height:1.12;max-width:22ch;margin-bottom:18px}
+  .intro p{font-size:16.5px;color:var(--mut);max-width:66ch;margin:0 0 14px}
+  .intro p b{color:var(--ink)}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:var(--dim)}
+  .legend span{display:inline-flex;gap:8px;align-items:center}
   .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  @media(max-width:820px){.grid{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,var(--surf),#0a0e13);border:1px solid var(--line);border-radius:18px;padding:28px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
-  .card:hover{border-color:var(--inner);transform:translateY(-2px)}
-  .card .letter{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--outer);margin-bottom:10px}
-  .card h2{font-size:23px;margin-bottom:12px}
-  .card .opt{font-size:14.5px;color:var(--mut);margin-bottom:16px}
-  .card .opt b{color:var(--ink)}
-  .card ul{margin:0 0 18px;padding-left:18px}
-  .card li{font-size:13.5px;color:var(--dim);margin-bottom:6px}
-  .card .go{margin-top:auto;font-size:14px;color:var(--inner);font-weight:600}
-  .card .metaphor{font-size:12px;color:var(--dim);border-top:1px solid var(--line2);padding-top:14px;margin-top:4px}
-  .note{margin-top:44px;font-size:13.5px;color:var(--dim);background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:20px 24px;max-width:80ch}
-  .note b{color:var(--mut)}
+
+  /* ---- sticky jump nav ---- */
+  .jump{position:sticky;top:0;z-index:50;background:rgba(6,8,11,.9);backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .jump .row{max-width:900px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:10px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .jump .jl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);white-space:nowrap;margin-right:2px}
+  .jb{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;text-decoration:none;
+    font-size:14px;color:var(--mut);border:1px solid var(--line);border-radius:22px;padding:7px 15px 7px 8px;transition:all .18s}
+  .jb b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+    background:var(--surf2);color:var(--dim);font-size:12px;font-weight:700;transition:all .18s}
+  .jb:hover{border-color:var(--inner);color:var(--ink)}
+  .jb.on{border-color:var(--inner);color:var(--ink);background:rgba(227,184,119,.08)}
+  .jb.on b{background:var(--inner);color:#1a130a}
+
+  /* ---- candidate sections ---- */
+  main{max-width:1180px;margin:0 auto;padding:0 20px}
+  .sec{scroll-margin-top:62px;padding:34px 0 10px;border-bottom:1px solid var(--line2)}
+  .sechead{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;padding:0 4px}
+  .sn{flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:17px;font-weight:700;color:var(--inner);border:1.5px solid var(--inner);background:rgba(227,184,119,.07)}
+  .sechead h2{font-size:22px;margin-bottom:4px}
+  .sechead h2 .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--outer);margin-left:0;display:block;margin-bottom:5px}
+  .sechead p{font-size:14.5px;color:var(--mut);margin:0;max-width:70ch}
+  .frame{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070a}
+  .frame .hint{position:absolute;top:10px;right:14px;z-index:2;font-size:11px;color:var(--dim);
+    background:rgba(6,8,11,.7);border:1px solid var(--line);border-radius:20px;padding:3px 10px;pointer-events:none}
+  iframe{display:block;width:100%;height:84vh;min-height:560px;border:0;background:#05070a}
+  .totop{display:inline-flex;align-items:center;gap:7px;margin:16px 4px 4px;font-size:13px;color:var(--dim);
+    text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:7px 15px;transition:all .18s}
+  .totop:hover{border-color:var(--inner);color:var(--ink)}
+
+  /* ---- footer feedback ---- */
+  .foot{max-width:820px;margin:0 auto;padding:40px 30px 90px}
+  .fb{background:linear-gradient(180deg,var(--surf),transparent);border:1px solid var(--line);border-radius:16px;padding:26px 28px}
+  .fb .fk{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--inner);margin-bottom:11px}
+  .fb .fh{font-size:17px;color:var(--ink);font-weight:600;margin-bottom:15px;letter-spacing:-.01em}
+  .fb ol{margin:0 0 20px;padding-left:20px;color:var(--mut);font-size:14.5px;line-height:1.75}
+  .fb ol b{color:var(--ink)}
+  .fb a{display:inline-block;font-size:14px;font-weight:600;color:var(--inner);border:1px solid var(--inner);border-radius:22px;padding:10px 22px;text-decoration:none}
+
+  @media(max-width:640px){
+    .intro{padding:40px 22px 20px}
+    .intro h1{font-size:27px}
+    .intro p{font-size:15.5px}
+    main{padding:0 14px}
+    iframe{height:80vh;min-height:460px}
+    .sechead{gap:12px}
+    .sn{width:32px;height:32px;font-size:15px}
+  }
 </style>
 </head>
-<body>
-<div class="wrap">
-  <div class="kick">Explainer design lab · Round 1</div>
-  <h1>Four competing "See it" pages — same content, four different souls.</h1>
-  <p class="intro">All four are built from the approved <b>Wim Hof pack (WP-V1.3)</b> plus the mocked inner-path material the pack still lacks. Every one honors the founding critique: a persistent <b>dual-track journey map</b> (outer discipline · inner purpose) with a "you are here" that moves as you scroll, the purpose dimension as a <b>first-class, honestly-tiered</b> voice, and the <b>§2 concept pictures</b> — causal chain, false-alarm gauge, the bridge, the progression ladder. Dark surfaces only.</p>
-  <div class="rules">
-    <span><i class="sw" style="background:var(--outer)"></i> Outer track — the discipline</span>
-    <span><i class="sw" style="background:var(--inner)"></i> Inner track — the purpose</span>
-    <span>Judge them side by side, then critique.</span>
-  </div>
+<body id="top">
 
-  <div class="grid">
-    <a class="card" href="a-map-led.html">
-      <div class="letter">Candidate A</div>
-      <h2>Map-led</h2>
-      <div class="opt">The <b>journey map is the page spine.</b> A persistent dual-track rail runs down the left; every step of content hangs off a station where outer and inner sit as two cards, side by side.</div>
-      <ul>
-        <li>Optimizes for: never losing the whole arc; structural clarity</li>
-        <li>Outer &amp; inner given equal visual weight at every step</li>
-        <li>Risk: the twin-card rhythm can feel systematic</li>
-      </ul>
-      <div class="metaphor">Metaphor: a trail map with two parallel paths</div>
-      <div class="go">Open Candidate A →</div>
-    </a>
-
-    <a class="card" href="b-story-led.html">
-      <div class="letter">Candidate B</div>
-      <h2>Story-led</h2>
-      <div class="opt">A <b>narrative walk through one session</b> — "sit down, here's what happens." Prose carries you; concept pictures interrupt it; the map shrinks to a slim margin companion. Purpose surfaces as inline asides.</div>
-      <ul>
-        <li>Optimizes for: emotional pull, readability, momentum</li>
-        <li>The inner path arrives as the story's own turn</li>
-        <li>Risk: less scannable; asks for reading attention</li>
-      </ul>
-      <div class="metaphor">Metaphor: a guided first-person voice, map in the wings</div>
-      <div class="go">Open Candidate B →</div>
-    </a>
-
-    <a class="card" href="c-two-column.html">
-      <div class="letter">Candidate C</div>
-      <h2>Two-column parallel</h2>
-      <div class="opt">A <b>persistent split screen</b>: discipline on the left, meaning on the right, the whole way down. A sticky dual-track header shows position on both tracks at once. Same step, two truths, same altitude.</div>
-      <ul>
-        <li>Optimizes for: the "two dimensions together" thesis, literally</li>
-        <li>Forces constant comparison of body-move and inner-move</li>
-        <li>Risk: two columns can compete for the eye</li>
-      </ul>
-      <div class="metaphor">Metaphor: a parallel text — physiology &amp; scripture facing pages</div>
-      <div class="go">Open Candidate C →</div>
-    </a>
-
-    <a class="card" href="d-depth-led.html">
-      <div class="letter">Candidate D</div>
-      <h2>Depth-led</h2>
-      <div class="opt">One <b>hero picture per screen</b>, five-word caption, everything else folded into drill-downs. Full-viewport panels; a compact dual-track dot-map on the edge. Simple on the surface, deep on demand.</div>
-      <ul>
-        <li>Optimizes for: "a picture worth a thousand words"; calm focus</li>
-        <li>Complexity absorbed — the reader chooses their depth</li>
-        <li>Risk: depth is hidden; a skimmer may miss the tiers</li>
-      </ul>
-      <div class="metaphor">Metaphor: a slide deck you can pause and open</div>
-      <div class="go">Open Candidate D →</div>
-    </a>
-  </div>
-
-  <div class="note">
-    <b>How to read these:</b> open each, scroll top to bottom, and watch the two-track map move. Ask of each — does the inner path feel <i>first-class and honest</i> (not a weak claim, not mocked, not footnoted away)? Do the pictures <i>predict a feeling</i>? Is the discipline/purpose pairing legible? Then pick the direction that pulls you in, and note what you'd keep from the others. Your read decides which one gets built.
-  </div>
-
-  <section style="margin-top:28px">
-    <div style="background:linear-gradient(180deg,var(--surf,#0e141c),transparent);border:1px solid var(--line,rgba(255,255,255,.09));border-radius:16px;padding:26px 28px;max-width:80ch">
-      <div style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--inner,#e3b877);margin-bottom:11px">Round 2 depends on your read</div>
-      <div style="font-size:17px;color:var(--ink,#eef2f8);font-weight:600;margin-bottom:15px;letter-spacing:-.01em">These are design candidates, not the product — three quick questions:</div>
-      <ol style="margin:0 0 20px;padding-left:20px;color:var(--mut,#a3b0be);font-size:14.5px;line-height:1.75">
-        <li>Which version made you want to <b style="color:var(--ink,#eef2f8)">try the practice</b>?</li>
-        <li>Where did you <b style="color:var(--ink,#eef2f8)">stop reading</b>?</li>
-        <li>Did the inner-path / &ldquo;bridge&rdquo; content feel <b style="color:var(--ink,#eef2f8)">honest, or odd</b>?</li>
-      </ol>
-      <a href="mailto:gt2vbbwwh8@privaterelay.appleid.com?subject=InnerState%20design-lab%20feedback&body=1)%20Which%20version%20made%20me%20want%20to%20try%20the%20practice%3A%0A%0A2)%20Where%20I%20stopped%20reading%3A%0A%0A3)%20Did%20the%20inner-path%20%2F%20bridge%20content%20feel%20honest%20or%20odd%3A%0A" style="display:inline-block;font-size:14px;font-weight:600;color:var(--inner,#e3b877);border:1px solid var(--inner,#e3b877);border-radius:22px;padding:10px 22px;text-decoration:none">Send feedback &rarr;</a>
+  <header class="intro">
+    <div class="kick">Explainer design · round 1 · for feedback</div>
+    <h1>Four ways to explain the same practice. Which one works?</h1>
+    <p>This is one screen of a dark, meditative breathing app — the "here's what it is and why" page. Below are <b>four competing designs of that exact screen</b>: same content, four different approaches (a journey-map spine, a story, a two-column split, and a picture-per-screen). They're <b>design candidates, not the finished product</b>.</p>
+    <p>Skim all four top to bottom, or use the <b>numbered buttons below to jump straight to one</b>. Each preview scrolls on its own inside its frame; a <b>"back to top"</b> link sits at the end of every section. When you've looked, the three questions at the very bottom are what I'd love answered.</p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--outer)"></i> teal = the discipline (what the body does)</span>
+      <span><i class="sw" style="background:var(--inner)"></i> gold = the purpose (where it leads)</span>
     </div>
-  </section>
-</div>
+  </header>
+
+  <nav class="jump" id="jump">
+    <div class="row">
+      <span class="jl">Jump to a design</span>
+      <a class="jb" href="#s1" data-n="0"><b>1</b> Map-led</a>
+      <a class="jb" href="#s2" data-n="1"><b>2</b> Story-led</a>
+      <a class="jb" href="#s3" data-n="2"><b>3</b> Two-column</a>
+      <a class="jb" href="#s4" data-n="3"><b>4</b> Depth-led</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="sec" id="s1">
+      <div class="sechead">
+        <div class="sn">1</div>
+        <div><h2><span class="tag">Map-led</span>The journey map is the page spine</h2>
+          <p>A persistent two-track rail runs down the side; every step is a station with the body-move and the inner-move shown side by side. Optimizes for never losing the whole arc.</p></div>
+      </div>
+      <div class="frame"><span class="hint">↕ scroll inside</span>
+        <iframe src="a-map-led.html" title="Candidate 1 — Map-led"></iframe></div>
+      <a class="totop" href="#top">↑ Back to top</a>
+    </section>
+
+    <section class="sec" id="s2">
+      <div class="sechead">
+        <div class="sn">2</div>
+        <div><h2><span class="tag">Story-led</span>A walk through one session</h2>
+          <p>Narrative prose carries you — "sit down, here's what happens" — with the map as a slim companion and the purpose surfacing as asides. Optimizes for emotional pull and readability.</p></div>
+      </div>
+      <div class="frame"><span class="hint">↕ scroll inside</span>
+        <iframe src="b-story-led.html" title="Candidate 2 — Story-led" loading="lazy"></iframe></div>
+      <a class="totop" href="#top">↑ Back to top</a>
+    </section>
+
+    <section class="sec" id="s3">
+      <div class="sechead">
+        <div class="sn">3</div>
+        <div><h2><span class="tag">Two-column</span>Discipline and meaning, side by side</h2>
+          <p>A split screen the whole way down — the body-move on the left, the inner meaning on the right — with a header tracking both at once. Optimizes for showing the two dimensions together, literally.</p></div>
+      </div>
+      <div class="frame"><span class="hint">↕ scroll inside</span>
+        <iframe src="c-two-column.html" title="Candidate 3 — Two-column" loading="lazy"></iframe></div>
+      <a class="totop" href="#top">↑ Back to top</a>
+    </section>
+
+    <section class="sec" id="s4">
+      <div class="sechead">
+        <div class="sn">4</div>
+        <div><h2><span class="tag">Depth-led</span>One picture per screen, depth on demand</h2>
+          <p>Each idea is a single hero picture with a five-word caption; the detail is folded into cards you open if you want it. Optimizes for calm focus — you choose how deep to go.</p></div>
+      </div>
+      <div class="frame"><span class="hint">↕ scroll inside</span>
+        <iframe src="d-depth-led.html" title="Candidate 4 — Depth-led" loading="lazy"></iframe></div>
+      <a class="totop" href="#top">↑ Back to top</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="fb">
+      <div class="fk">Round 2 depends on your read</div>
+      <div class="fh">Three quick questions — reply to any of them:</div>
+      <ol>
+        <li>Which version made you want to <b>try the practice</b>?</li>
+        <li>Where did you <b>stop reading</b>?</li>
+        <li>Did the inner-path / &ldquo;bridge&rdquo; content feel <b>honest, or odd</b>?</li>
+      </ol>
+      <a href="mailto:gt2vbbwwh8@privaterelay.appleid.com?subject=InnerState%20design-lab%20feedback&body=1)%20Which%20version%20made%20me%20want%20to%20try%20the%20practice%3A%0A%0A2)%20Where%20I%20stopped%20reading%3A%0A%0A3)%20Did%20the%20inner-path%20%2F%20bridge%20content%20feel%20honest%20or%20odd%3A%0A">Send feedback &rarr;</a>
+    </div>
+  </footer>
+
+  <script>
+    // highlight the jump button whose section is in view
+    const secs = ['s1','s2','s3','s4'].map(id=>document.getElementById(id));
+    const btns = [...document.querySelectorAll('.jb')];
+    function update(){
+      const mid = window.scrollY + window.innerHeight*0.35;
+      let active = 0;
+      secs.forEach((s,i)=>{ if(s.offsetTop <= mid) active = i; });
+      btns.forEach((b,i)=>b.classList.toggle('on', i===active));
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  </script>
 </body>
 </html>
