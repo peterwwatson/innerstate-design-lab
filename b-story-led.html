@@ -39,7 +39,24 @@
   .cstep.done .dot{background:var(--outer);border-color:var(--outer)}
 
   .page{max-width:720px;margin:0 auto;padding:0 32px 140px;position:relative}
-  @media(max-width:1120px){.companion{display:none}}
+  /* on narrower screens the side companion becomes a compact sticky top strip (map stays persistent) */
+  @media(max-width:1120px){
+    .companion{position:sticky;top:0;left:0;right:auto;height:auto;width:100%;flex-direction:row;
+      justify-content:space-between;gap:2px;padding:9px 16px;border-left:none;
+      border-bottom:1px solid var(--line2);background:rgba(6,8,11,.92);backdrop-filter:blur(12px);z-index:30}
+    .companion .lbl{display:none}
+    .cstep{padding:4px 2px;text-align:center;flex:1}
+    .cstep::before{display:none}
+    .cstep .dot{position:static;margin:0 auto 4px}
+    .cstep .o{font-size:11px} .cstep .i{font-size:9.5px}
+    .page{max-width:640px}
+  }
+  @media(max-width:640px){
+    .page{padding:0 22px 120px}
+    .cover h1{font-size:34px} .cover .lede{font-size:17px}
+    .beat h2{font-size:25px} .prose{font-size:16px}
+    .cstep .o{font-size:10px} .cstep .i{font-size:9px}
+  }
 
   .cover{min-height:86vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0}
   /* throwaway flat-capture mode (#cap) — collapses viewport heights for full-page screenshots */
