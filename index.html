@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explainer Design Lab · Round 1</title>
+<style>
+  :root{
+    --bg:#06080b; --surf:#0e141c; --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
+    --ink:#eef2f8; --mut:#a3b0be; --dim:#6b7885; --outer:#4fc7c0; --inner:#e3b877;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1000px 700px at 80% -10%,#0d1622,transparent 60%),var(--bg);
+    color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,system-ui,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
+  .wrap{max-width:1120px;margin:0 auto;padding:64px 32px 100px}
+  .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--inner);margin-bottom:16px}
+  h1{font-size:38px;line-height:1.1;max-width:20ch;margin-bottom:18px}
+  .intro{font-size:17px;color:var(--mut);max-width:66ch;margin-bottom:12px}
+  .intro b{color:var(--ink)}
+  .rules{display:flex;gap:22px;flex-wrap:wrap;margin:26px 0 44px;font-size:13px;color:var(--dim)}
+  .rules span{display:inline-flex;gap:8px;align-items:center}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--surf),#0a0e13);border:1px solid var(--line);border-radius:18px;padding:28px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--inner);transform:translateY(-2px)}
+  .card .letter{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--outer);margin-bottom:10px}
+  .card h2{font-size:23px;margin-bottom:12px}
+  .card .opt{font-size:14.5px;color:var(--mut);margin-bottom:16px}
+  .card .opt b{color:var(--ink)}
+  .card ul{margin:0 0 18px;padding-left:18px}
+  .card li{font-size:13.5px;color:var(--dim);margin-bottom:6px}
+  .card .go{margin-top:auto;font-size:14px;color:var(--inner);font-weight:600}
+  .card .metaphor{font-size:12px;color:var(--dim);border-top:1px solid var(--line2);padding-top:14px;margin-top:4px}
+  .note{margin-top:44px;font-size:13.5px;color:var(--dim);background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:20px 24px;max-width:80ch}
+  .note b{color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Explainer design lab · Round 1</div>
+  <h1>Four competing "See it" pages — same content, four different souls.</h1>
+  <p class="intro">All four are built from the approved <b>Wim Hof pack (WP-V1.3)</b> plus the mocked inner-path material the pack still lacks. Every one honors the founding critique: a persistent <b>dual-track journey map</b> (outer discipline · inner purpose) with a "you are here" that moves as you scroll, the purpose dimension as a <b>first-class, honestly-tiered</b> voice, and the <b>§2 concept pictures</b> — causal chain, false-alarm gauge, the bridge, the progression ladder. Dark surfaces only.</p>
+  <div class="rules">
+    <span><i class="sw" style="background:var(--outer)"></i> Outer track — the discipline</span>
+    <span><i class="sw" style="background:var(--inner)"></i> Inner track — the purpose</span>
+    <span>Judge them side by side, then critique.</span>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="a-map-led.html">
+      <div class="letter">Candidate A</div>
+      <h2>Map-led</h2>
+      <div class="opt">The <b>journey map is the page spine.</b> A persistent dual-track rail runs down the left; every step of content hangs off a station where outer and inner sit as two cards, side by side.</div>
+      <ul>
+        <li>Optimizes for: never losing the whole arc; structural clarity</li>
+        <li>Outer &amp; inner given equal visual weight at every step</li>
+        <li>Risk: the twin-card rhythm can feel systematic</li>
+      </ul>
+      <div class="metaphor">Metaphor: a trail map with two parallel paths</div>
+      <div class="go">Open Candidate A →</div>
+    </a>
+
+    <a class="card" href="b-story-led.html">
+      <div class="letter">Candidate B</div>
+      <h2>Story-led</h2>
+      <div class="opt">A <b>narrative walk through one session</b> — "sit down, here's what happens." Prose carries you; concept pictures interrupt it; the map shrinks to a slim margin companion. Purpose surfaces as inline asides.</div>
+      <ul>
+        <li>Optimizes for: emotional pull, readability, momentum</li>
+        <li>The inner path arrives as the story's own turn</li>
+        <li>Risk: less scannable; asks for reading attention</li>
+      </ul>
+      <div class="metaphor">Metaphor: a guided first-person voice, map in the wings</div>
+      <div class="go">Open Candidate B →</div>
+    </a>
+
+    <a class="card" href="c-two-column.html">
+      <div class="letter">Candidate C</div>
+      <h2>Two-column parallel</h2>
+      <div class="opt">A <b>persistent split screen</b>: discipline on the left, meaning on the right, the whole way down. A sticky dual-track header shows position on both tracks at once. Same step, two truths, same altitude.</div>
+      <ul>
+        <li>Optimizes for: the "two dimensions together" thesis, literally</li>
+        <li>Forces constant comparison of body-move and inner-move</li>
+        <li>Risk: two columns can compete for the eye</li>
+      </ul>
+      <div class="metaphor">Metaphor: a parallel text — physiology &amp; scripture facing pages</div>
+      <div class="go">Open Candidate C →</div>
+    </a>
+
+    <a class="card" href="d-depth-led.html">
+      <div class="letter">Candidate D</div>
+      <h2>Depth-led</h2>
+      <div class="opt">One <b>hero picture per screen</b>, five-word caption, everything else folded into drill-downs. Full-viewport panels; a compact dual-track dot-map on the edge. Simple on the surface, deep on demand.</div>
+      <ul>
+        <li>Optimizes for: "a picture worth a thousand words"; calm focus</li>
+        <li>Complexity absorbed — the reader chooses their depth</li>
+        <li>Risk: depth is hidden; a skimmer may miss the tiers</li>
+      </ul>
+      <div class="metaphor">Metaphor: a slide deck you can pause and open</div>
+      <div class="go">Open Candidate D →</div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>How to read these:</b> open each, scroll top to bottom, and watch the two-track map move. Ask of each — does the inner path feel <i>first-class and honest</i> (not a weak claim, not mocked, not footnoted away)? Do the pictures <i>predict a feeling</i>? Is the discipline/purpose pairing legible? Then pick the direction that pulls you in, and note what you'd keep from the others. Your read decides which one gets built.
+  </div>
+
+  <section style="margin-top:28px">
+    <div style="background:linear-gradient(180deg,var(--surf,#0e141c),transparent);border:1px solid var(--line,rgba(255,255,255,.09));border-radius:16px;padding:26px 28px;max-width:80ch">
+      <div style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--inner,#e3b877);margin-bottom:11px">Round 2 depends on your read</div>
+      <div style="font-size:17px;color:var(--ink,#eef2f8);font-weight:600;margin-bottom:15px;letter-spacing:-.01em">These are design candidates, not the product — three quick questions:</div>
+      <ol style="margin:0 0 20px;padding-left:20px;color:var(--mut,#a3b0be);font-size:14.5px;line-height:1.75">
+        <li>Which version made you want to <b style="color:var(--ink,#eef2f8)">try the practice</b>?</li>
+        <li>Where did you <b style="color:var(--ink,#eef2f8)">stop reading</b>?</li>
+        <li>Did the inner-path / &ldquo;bridge&rdquo; content feel <b style="color:var(--ink,#eef2f8)">honest, or odd</b>?</li>
+      </ol>
+      <a href="mailto:gt2vbbwwh8@privaterelay.appleid.com?subject=InnerState%20design-lab%20feedback&body=1)%20Which%20version%20made%20me%20want%20to%20try%20the%20practice%3A%0A%0A2)%20Where%20I%20stopped%20reading%3A%0A%0A3)%20Did%20the%20inner-path%20%2F%20bridge%20content%20feel%20honest%20or%20odd%3A%0A" style="display:inline-block;font-size:14px;font-weight:600;color:var(--inner,#e3b877);border:1px solid var(--inner,#e3b877);border-radius:22px;padding:10px 22px;text-decoration:none">Send feedback &rarr;</a>
+    </div>
+  </section>
+</div>
+</body>
+</html>

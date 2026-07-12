@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A · Map-led · Wim Hof — See it</title>
+<style>
+  :root{
+    --bg:#06080b; --bg2:#0a0e13; --surf:#0e141c; --surf2:#121a24;
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
+    --ink:#e9eef5; --mut:#9aa8b6; --dim:#6b7885;
+    --outer:#4fc7c0;      /* discipline track */
+    --inner:#e3b877;      /* purpose track */
+    --outerdim:rgba(79,199,192,.16); --innerdim:rgba(227,184,119,.15);
+    --trial:#6fbf8b; --feat:#6aa9e0; --mass:#d9b06a; --first:#b98cdb; --frontier:#d98ba0; --danger:#e0736a;
+    --r:16px;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:
+      radial-gradient(1100px 700px at 82% -8%, #0d1622 0%, transparent 60%),
+      radial-gradient(900px 600px at 8% 108%, #120f1a 0%, transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,system-ui,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
+  .wrap{display:grid;grid-template-columns:290px 1fr;gap:0;max-width:1180px;margin:0 auto}
+
+  /* ---------- persistent journey rail ---------- */
+  .rail{position:sticky;top:0;align-self:start;height:100vh;padding:30px 20px 30px 30px;
+    border-right:1px solid var(--line);display:flex;flex-direction:column}
+  .rail .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .rail .brandsub{font-size:12.5px;color:var(--mut);margin-bottom:22px;line-height:1.35}
+  .tracks-head{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:14px}
+  .tracks-head .o{color:var(--outer)} .tracks-head .i{color:var(--inner)}
+  .map{position:relative;flex:1}
+  .spine{position:absolute;left:50%;top:8px;bottom:8px;width:2px;transform:translateX(-50%);
+    background:linear-gradient(var(--outerdim),var(--innerdim))}
+  .prog{position:absolute;left:50%;top:8px;width:2px;transform:translateX(-50%);height:0;
+    background:linear-gradient(var(--outer),var(--inner));box-shadow:0 0 12px var(--inner);transition:height .25s ease}
+  .stations{position:relative;display:flex;flex-direction:column;justify-content:space-between;height:100%}
+  .st{position:relative;display:grid;grid-template-columns:1fr 22px 1fr;align-items:center;gap:0;cursor:pointer;
+    text-decoration:none}
+  .st .o,.st .i{font-size:13px;color:var(--mut);transition:color .2s,transform .2s}
+  .st .o{text-align:right;padding-right:14px}
+  .st .i{text-align:left;padding-left:14px}
+  .st .dot{width:11px;height:11px;border-radius:50%;justify-self:center;background:var(--surf2);
+    border:2px solid var(--line);transition:all .25s;z-index:2}
+  .st.on .dot{border-color:var(--inner);background:var(--inner);box-shadow:0 0 0 5px rgba(227,184,119,.12),0 0 16px rgba(227,184,119,.5);transform:scale(1.15)}
+  .st.on .o{color:var(--outer)} .st.on .i{color:var(--inner)}
+  .st.on .o,.st.on .i{transform:translateY(-1px)}
+  .st .sub{grid-column:1/-1;font-size:10.5px;color:var(--dim);text-align:center;margin-top:2px;opacity:0;height:0;transition:opacity .2s}
+  .st.on .sub{opacity:1;height:auto;margin-top:4px}
+  .rail .foot{font-size:11px;color:var(--dim);margin-top:20px}
+
+  /* ---------- content column ---------- */
+  main{padding:0 44px 120px 52px;min-width:0}
+  .hero{padding:82px 0 40px;border-bottom:1px solid var(--line2)}
+  .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--outer);margin-bottom:16px}
+  .hero h1{font-size:40px;line-height:1.08;max-width:15ch;margin-bottom:20px}
+  .hero .lede{font-size:18.5px;color:var(--mut);max-width:52ch;line-height:1.5}
+  .hero .lede b{color:var(--ink);font-weight:600}
+  .heronote{margin-top:26px;font-size:13px;color:var(--dim);display:flex;gap:20px;flex-wrap:wrap}
+  .heronote span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  section.station{padding:64px 0 20px;scroll-margin-top:0;border-bottom:1px solid var(--line2)}
+  .stnum{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .stnum b{font-size:12px;letter-spacing:.2em;color:var(--dim)}
+  .stnum .pair{font-size:13px}
+  .stnum .pair .o{color:var(--outer)} .stnum .pair .i{color:var(--inner)}
+  .sthead{font-size:26px;line-height:1.15;margin:8px 0 30px;max-width:22ch}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:1080px){.duo{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--surf),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:24px}
+  .card.o{border-top:2px solid var(--outer)}
+  .card.i{border-top:2px solid var(--inner)}
+  .tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+  .card.o .tag{color:var(--outer)} .card.i .tag{color:var(--inner)}
+  .card h3{font-size:17px;margin-bottom:12px}
+  .card p{font-size:14.5px;color:var(--mut);margin:0 0 12px}
+  .card p:last-child{margin-bottom:0}
+  .feels{font-size:13px;color:var(--outer);background:var(--outerdim);border-radius:10px;padding:9px 13px;margin-top:6px}
+  .card.i .feels{color:var(--inner);background:var(--innerdim)}
+
+  /* concept pictures (§2 visual grammar) */
+  .pic{margin:6px 0 14px}
+  .chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .node{flex:1;min-width:88px;background:var(--surf2);border:1px solid var(--line);border-radius:11px;padding:11px 10px;text-align:center;position:relative}
+  .node b{display:block;font-size:12px;color:var(--ink);margin-bottom:3px}
+  .node small{font-size:10.5px;color:var(--dim);line-height:1.3;display:block}
+  .arrow{align-self:center;color:var(--outer);font-size:16px;padding:0 5px}
+  .cap{font-size:12px;color:var(--dim);text-align:center;margin-top:9px;font-style:italic}
+
+  .gauge{background:var(--surf2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .gaugebar{height:12px;border-radius:6px;background:linear-gradient(90deg,#20303a,#1a2630);position:relative;overflow:hidden;margin:8px 0}
+  .gaugefill{position:absolute;left:0;top:0;bottom:0;width:24%;background:linear-gradient(90deg,#3a6f66,var(--outer));border-radius:6px}
+  .gaugerow{display:flex;justify-content:space-between;font-size:11px;color:var(--dim)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .split div{font-size:12px;padding:9px 11px;border-radius:9px}
+  .split .what{background:rgba(224,115,106,.10);color:#e6a49d} .split .is{background:var(--outerdim);color:var(--outer)}
+  .split b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+
+  .ladder{display:flex;flex-direction:column;gap:7px}
+  .rung{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;background:var(--surf2);border:1px solid var(--line);border-left:3px solid var(--inner);border-radius:9px;padding:9px 13px}
+  .rung .lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--inner)}
+  .rung .txt{font-size:12.5px;color:var(--mut)}
+
+  /* the bridge picture */
+  .bridge{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0;background:var(--surf2);border:1px solid var(--line);border-radius:12px;padding:20px 16px}
+  .domain{text-align:center;padding:12px}
+  .domain .ic{font-size:22px}
+  .domain b{display:block;font-size:13px;margin:6px 0 3px}
+  .domain small{font-size:11px;color:var(--dim)}
+  .span{position:relative;min-width:90px;height:2px;background:linear-gradient(90deg,var(--outer),var(--inner));margin:0 6px}
+  .span::before{content:"the bridge";position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--inner);white-space:nowrap}
+  .span::after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-top:2px solid var(--inner);border-right:2px solid var(--inner);transform:rotate(45deg)}
+
+  details.deep{margin-top:14px;border-top:1px solid var(--line2);padding-top:12px}
+  details.deep summary{font-size:12.5px;color:var(--outer);cursor:pointer;list-style:none}
+  .card.i details.deep summary{color:var(--inner)}
+  details.deep summary::before{content:"▸ ";}
+  details.deep[open] summary::before{content:"▾ "}
+  details.deep p{font-size:13px;margin-top:10px}
+
+  .tierbadge{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;margin-bottom:12px}
+  .tb-lineage{color:var(--inner);background:var(--innerdim);border:1px solid rgba(227,184,119,.3)}
+  .tb-first{color:var(--first);background:rgba(185,140,219,.12);border:1px solid rgba(185,140,219,.3)}
+  .tb-frontier{color:var(--frontier);background:rgba(217,139,160,.12);border:1px solid rgba(217,139,160,.3)}
+
+  /* predictions strip inside a station */
+  .predrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+  .pred{flex:1;min-width:180px;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .pred .when{font-size:11px;color:var(--dim);margin-bottom:5px}
+  .pred .feel{font-size:14px;color:var(--ink);margin-bottom:6px;font-weight:500}
+  .pred .cue{font-size:12.5px;color:var(--outer);font-style:italic}
+  .stagepill{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);border-radius:20px;padding:2px 8px;margin-left:6px}
+
+  /* evidence ladder section */
+  .evrow{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line2);align-items:start}
+  .evtier{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px}
+  .evtier .d{width:9px;height:9px;border-radius:50%}
+  .evfind{font-size:14px;color:var(--ink);margin-bottom:6px}
+  .evscope{font-size:12.5px;color:var(--dim)}
+  .evstatus{display:inline-block;font-size:10.5px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:2px 9px;margin-top:8px}
+
+  .safety{background:linear-gradient(180deg,rgba(224,115,106,.10),rgba(224,115,106,.03));border:1px solid rgba(224,115,106,.42);border-radius:var(--r);padding:26px;margin-top:56px}
+  .safety h2{color:var(--danger);font-size:19px;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .safety ul{margin:0;padding-left:20px}
+  .safety li{font-size:14px;color:#e6c4bf;margin-bottom:9px}
+  .safety li b{color:#f2d4cf}
+
+  .closing{padding:56px 0 0}
+  .closing h2{font-size:22px;margin-bottom:16px}
+  .closing p{font-size:16px;color:var(--mut);max-width:60ch;line-height:1.6}
+  .stamp{margin-top:34px;font-size:12px;color:var(--dim);border-top:1px solid var(--line2);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ PERSISTENT DUAL-TRACK JOURNEY RAIL ============ -->
+  <aside class="rail">
+    <div class="brand">The Wim Hof Method</div>
+    <div class="brandsub">One journey, two tracks — what your body does, and where it takes you.</div>
+    <div class="tracks-head"><span class="o">◀ Outer · the discipline</span><span class="i">Inner · the purpose ▶</span></div>
+    <div class="map">
+      <div class="stations" id="stations">
+        <a class="st" href="#s1" data-i="0"><span class="o">Breathe</span><span class="dot"></span><span class="i">Settle</span><span class="sub">~30 power breaths · mind on the breath</span></a>
+        <a class="st" href="#s2" data-i="1"><span class="o">Hold</span><span class="dot"></span><span class="i">Release</span><span class="sub">empty-lung hold · thoughts arise & pass</span></a>
+        <a class="st" href="#s3" data-i="2"><span class="o">Recover</span><span class="dot"></span><span class="i">Stillness</span><span class="sub">honest signal · the inward-facing quiet</span></a>
+        <a class="st" href="#s4" data-i="3"><span class="o">Rounds</span><span class="dot"></span><span class="i">The bridge</span><span class="sub">each hold longer · knowing from inside</span></a>
+        <a class="st" href="#s5" data-i="4"><span class="o">Meditation</span><span class="dot"></span><span class="i">Return</span><span class="sub">closing stillness · follow it down</span></a>
+      </div>
+      <div class="spine"><div class="prog" id="prog"></div></div>
+    </div>
+    <div class="foot">You are here · scroll to travel</div>
+  </aside>
+
+  <!-- ============ CONTENT ============ -->
+  <main>
+    <header class="hero">
+      <div class="kick">See it before you feel it</div>
+      <h1>Breathe, let go, and cross into a stillness you can return to.</h1>
+      <p class="lede">A rhythm you can learn in one sitting: <b>~30 full breaths, hold empty, recover, repeat.</b> The chemistry explains why the hold feels calm — but the practice is really training two things at once, a body skill and an inward path. This page shows both, side by side, honestly labelled.</p>
+      <div class="heronote">
+        <span><i class="swatch" style="background:var(--outer)"></i> Outer track — measurable, safe, testable</span>
+        <span><i class="swatch" style="background:var(--inner)"></i> Inner track — the teaching's own map</span>
+      </div>
+    </header>
+
+    <!-- STATION 1 -->
+    <section class="station" id="s1">
+      <div class="stnum"><b>01</b><span class="pair"><span class="o">Breathe</span> · <span class="i">Settle</span></span></div>
+      <h2 class="sthead">Fast full breaths change your blood chemistry — and pull the mind onto one thing.</h2>
+      <div class="duo">
+        <div class="card o">
+          <div class="tag">Outer · what the body does</div>
+          <h3>Over-breathing blows off carbon dioxide</h3>
+          <div class="pic">
+            <div class="chain">
+              <div class="node"><b>~30 breaths</b><small>full & easy</small></div>
+              <span class="arrow">→</span>
+              <div class="node"><b>CO₂ falls</b><small>blood tilts alkaline</small></div>
+              <span class="arrow">→</span>
+              <div class="node"><b>Alarm quiets</b><small>no urge to breathe</small></div>
+              <span class="arrow">→</span>
+              <div class="node"><b>Calm hold</b><small>ready to let go</small></div>
+            </div>
+            <div class="cap">Breaths lower CO₂ → the breathe-now alarm goes quiet.</div>
+          </div>
+          <p class="feels">Feels like: tingling in the hands and face, a buzzing, light electric warmth. That means it's working.</p>
+        </div>
+        <div class="card i">
+          <div class="tag">Inner · where it takes you</div>
+          <h3>Settle — hold the mind on the breath</h3>
+          <p>The instruction underneath the chemistry: keep your attention on the breath and don't get lost in thoughts. This is the beginning of the inward turn.</p>
+          <p>Simple, but not easy — and that difficulty <em>is</em> the training, not an obstacle to it.</p>
+          <p class="feels">The teaching's frame: a body relaxed enough to let go can store what a tense body can't.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION 2 -->
+    <section class="station" id="s2">
+      <div class="stnum"><b>02</b><span class="pair"><span class="o">Hold</span> · <span class="i">Release</span></span></div>
+      <h2 class="sthead">The empty hold feels calm because the urge to breathe is a false alarm.</h2>
+      <div class="duo">
+        <div class="card o">
+          <div class="tag">Outer · the false-alarm gauge</div>
+          <h3>The urge is a CO₂ gauge, not an oxygen gauge</h3>
+          <div class="pic">
+            <div class="gauge">
+              <div class="gaugerow"><span>breathe-now urge</span><span style="color:var(--outer)">quiet</span></div>
+              <div class="gaugebar"><div class="gaugefill"></div></div>
+              <div class="split">
+                <div class="what"><b>What it feels like</b>"I should be gasping"</div>
+                <div class="is"><b>What it is</b>CO₂ still low — no real need yet</div>
+              </div>
+            </div>
+            <div class="cap">Oxygen actually falls here — the calm is the quiet alarm, not stored air.</div>
+          </div>
+          <p class="feels">Feels like: surprising stillness, no urgent pull to breathe, a quiet spaciousness.</p>
+        </div>
+        <div class="card i">
+          <div class="tag">Inner · where it takes you</div>
+          <h3>Release — thoughts arise as stress leaves</h3>
+          <p>In the hold, thoughts surface. The teaching reframes them: stress released from the body <em>generates</em> thoughts. They aren't failure — they're the practice working.</p>
+          <p><b>Noticing you've been carried off, and returning to the breath — that turning-back is the practice itself.</b> A learning and a purifying, one return at a time.</p>
+          <details class="deep"><summary>Why this is the whole game</summary><p>Every school of this shape trains the same move: wander, notice, return. The vehicle differs; the return is universal. See the inner track's final station.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION 3 -->
+    <section class="station" id="s3">
+      <div class="stnum"><b>03</b><span class="pair"><span class="o">Recover</span> · <span class="i">Stillness</span></span></div>
+      <h2 class="sthead">When the urge honestly returns, you recover — and drop into a settled quiet.</h2>
+      <div class="duo">
+        <div class="card o">
+          <div class="tag">Outer · the honest signal</div>
+          <h3>One recovery breath, held with a light squeeze</h3>
+          <p>CO₂ rebuilds; the urge returns — that returning pull is your body's honest cue to recover. Take one full inhale, hold ~15 s with attention drawn gently up toward the head, eyes soft and open, then let it all go.</p>
+          <div class="predrow">
+            <div class="pred"><div class="when">During the recovery hold</div><div class="feel">Head pressure, warmth, a wave of relief</div><div class="cue">"Feel the pressure, don't force it — then let it all go."</div></div>
+          </div>
+          <p class="feels">Feels like: fullness in head and chest, then release.</p>
+        </div>
+        <div class="card i">
+          <div class="tag">Inner · where it takes you</div>
+          <h3>Stillness — the inward-facing quiet</h3>
+          <p>After recovery, rest. No breath to control, nothing to do. This is the settled, cleansed state the whole round was travelling toward — the doorway to the inner track's deeper stations.</p>
+          <p class="feels">A calm, open, inward-facing state you can learn to return to anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION 4 — THE BRIDGE (purpose gets the weight here) -->
+    <section class="station" id="s4">
+      <div class="stnum"><b>04</b><span class="pair"><span class="o">Rounds</span> · <span class="i">The bridge</span></span></div>
+      <h2 class="sthead">Round after round the hold gets easier — and the practice opens onto its real claim.</h2>
+      <div class="duo">
+        <div class="card o">
+          <div class="tag">Outer · the progression</div>
+          <h3>Six rounds, each hold longer and easier</h3>
+          <div class="pic">
+            <div class="ladder">
+              <div class="rung"><span class="lab">First sessions</span><span class="txt">Everything is alert; you react to every signal. Holds are short.</span></div>
+              <div class="rung"><span class="lab">Developing</span><span class="txt">You wait for the urge and recover on it; holds lengthen round to round.</span></div>
+              <div class="rung"><span class="lab">Experienced</span><span class="txt">You calmly execute a protocol; minutes pass without strain (the owner has sat 8 min).</span></div>
+            </div>
+            <div class="cap">The same practice changes category as you change.</div>
+          </div>
+        </div>
+        <div class="card i">
+          <div class="tag">Inner · where it takes you</div>
+          <span class="tierbadge tb-lineage">Lineage-teaching voice</span>
+          <h3>The bridge — knowing and controlling from inside</h3>
+          <p>The teaching's own map: turn inward, come to know and control what we are from inside knowledge, and heal what blocks access to it — including remapping the old, hidden programming we run on.</p>
+          <div class="bridge" style="margin:14px 0">
+            <div class="domain"><div class="ic">🧍</div><b>The cushion</b><small>the practice</small></div>
+            <div class="span"></div>
+            <div class="domain"><div class="ic">🌍</div><b>Your life</b><small>carried into it</small></div>
+          </div>
+          <details class="deep" open><summary>The buried question — held honestly, two answers side by side</summary>
+            <p><b>How did Wim gain the ice capability?</b> The teaching answers: the bridge, developed far. Physiology answers too: under monitoring, his core temperature fell only 0.7 °C through 88 minutes buried in ice, heat production roughly doubled (Bongers 2019) — a documented feat, mechanism only partly explained. Neither answer erases the other; both are labelled for what they are.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION 5 — RETURN -->
+    <section class="station" id="s5">
+      <div class="stnum"><b>05</b><span class="pair"><span class="o">Meditation</span> · <span class="i">Return</span></span></div>
+      <h2 class="sthead">The rhythm ends in meditation — the same move every contemplative path knows.</h2>
+      <div class="duo">
+        <div class="card o">
+          <div class="tag">Outer · closing stillness</div>
+          <h3>Rest in awareness</h3>
+          <p>After the final recovery, no more breath control — just noticing the settled, cleansed state. The discipline delivers you to the door; the sitting is what you do there.</p>
+          <p class="feels">Deep, effortless stillness — the foreground becomes quiet, not sensation.</p>
+        </div>
+        <div class="card i">
+          <div class="tag">Inner · where it takes you</div>
+          <span class="tierbadge tb-lineage">Lineage-teaching</span>
+          <h3>Return — follow it down</h3>
+          <p>Other schools say: return to the mantra and follow it down toward transcendence. Same shape, different vehicle. Here the breath is the mantra; the return is the whole practice.</p>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line2)">
+            <span class="tierbadge tb-first">First-person · the owner</span>
+            <p style="font-style:italic;color:var(--ink)">"Done with full intent, the practice ends in a space where soul energy has entered consciousness and healing happens — and the path gets a little clearer."</p>
+            <p style="font-size:12.5px;color:var(--dim)">Offered as one practitioner's report, without apology and without assertion. The invitation is to test it in your own body.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVIDENCE LADDER -->
+    <section class="station" id="evidence" style="border-bottom:none">
+      <div class="stnum"><b>—</b><span class="pair">How far to trust each part</span></div>
+      <h2 class="sthead">The bold claims sit on a ladder of evidence, not a single yes-or-no.</h2>
+      <p style="color:var(--mut);max-width:60ch;margin:-14px 0 26px">Each rung is labelled by tier — measured, demonstrated, reported, or open. Nothing here is asserted as medicine; nothing real is dismissed for being hard to measure.</p>
+
+      <div class="evrow"><div class="evtier"><span class="d" style="background:var(--trial)"></span>Measured<br>in trials</div><div><div class="evfind">Voluntary hyperventilation lowers CO₂ and mutes air hunger; trained practitioners blunted the inflammatory response to an endotoxin (IL-6/TNF down ~50%).</div><div class="evscope">n=24 healthy young men, single lab session (Kox 2014, PNAS). Oxygen is <em>not</em> raised — it falls during the hold.</div><span class="evstatus">confirmed within scope</span></div></div>
+
+      <div class="evrow"><div class="evtier"><span class="d" style="background:var(--trial)"></span>Measured<br>in trials</div><div><div class="evfind">Over 3 weeks it reduced depression and anxiety — but about equally to simple slow breathing; its one edge was less post-stress rumination.</div><div class="evscope">n=84 depressed non-practitioners, 3 weeks (Blades 2024). A null-vs-slow-breathing result on beginners is not a verdict on the practice at full intent over years.</div><span class="evstatus">confirmed within scope; not superior here</span></div></div>
+
+      <div class="evrow"><div class="evtier"><span class="d" style="background:var(--feat)"></span>Demonstrated<br>feat</div><div><div class="evfind">Under continuous monitoring, the method's originator held his core temperature within 0.7 °C through 88 minutes of full-body ice immersion, no shivering, heat production ~doubled.</div><div class="evscope">n-of-1, world-record holder (Bongers 2019). Mechanism only partly explained. <b>NOT something any untrained person can do — attempting it is dangerous.</b></div><span class="evstatus">documented feat; mechanism partly open</span></div></div>
+
+      <div class="evrow"><div class="evtier"><span class="d" style="background:var(--mass)"></span>Mass<br>testimony</div><div><div class="evfind">Across large practitioner populations the same reports recur: more energy, clearer mind, calmer stress, cold tolerance, a felt sense of connection — learnable in one sitting, free at home.</div><div class="evscope">Peer-reviewed practitioner studies (Huish 2025; King 2025, n=404). Evidence of value and accessibility, not of mechanism. Heavy selection effects.</div><span class="evstatus">lived-experience, honestly labelled</span></div></div>
+
+      <div class="evrow"><div class="evtier"><span class="d" style="background:var(--first)"></span>First<br>person</div><div><div class="evfind">The owner reports that breathing with full intent has stopped tooth pain and cleared infection within a single program — "it happens when full intent happens."</div><div class="evscope">n-of-1, uncontrolled. The critical variable is <b>intent</b> — trials test the protocol but never control the full-intent state, so they measure the shell without the core.</div><span class="evstatus">first-person, unverified, labelled</span></div></div>
+
+      <div class="evrow" style="border-bottom:none"><div class="evtier"><span class="d" style="background:var(--frontier)"></span>Frontier<br>open</div><div><div class="evfind">There may be an energetic dimension current instruments don't capture — "studies do not carry the energetic measurement; they do not know how."</div><div class="evscope">Held as an explicitly open question. The honest path between belief and dismissal: build the instrument the studies lack (HRV/EEG + prediction→confirmation) and test it in your own body.</div><span class="evstatus">open question — not established</span></div></div>
+    </section>
+
+    <!-- SAFETY -->
+    <div class="safety">
+      <h2>⚠︎ Read before you practise</h2>
+      <ul>
+        <li><b>Never in or near water.</b> Breath-holds cause shallow-water blackout — there are documented drownings, including practitioners.</li>
+        <li><b>Never while driving or standing.</b> Always seated or lying down; fainting can happen without warning and is common enough to expect.</li>
+        <li>Tingling, light-headedness, and hand cramping (tetany) are common and harmless — ease off and breathe normally.</li>
+        <li>Do not force the hold; let the natural urge to breathe be your signal to recover.</li>
+        <li>Skip or consult a professional if pregnant, or with epilepsy, cardiovascular conditions, high blood pressure, a history of fainting, or <b>panic disorder</b>.</li>
+        <li>This is a wellness practice, not medical treatment. "Healer / alchemist / own 100% of your brain" is inspiration, not a cure.</li>
+      </ul>
+    </div>
+
+    <div class="closing">
+      <h2>What's real and repeatable is simpler than the legend.</h2>
+      <p>Breathe, let go, hold, recover, and rest in a calm, open, inward-facing state you can return to anytime. The trials measure the shell; the teaching maps the inside; the owner reports from full intent. All three are held honestly, by tier — named, never dismissed, never sold as medicine. If you want to know how far it goes, don't take anyone's word: test it in your own body.</p>
+      <div class="stamp">Wim Hof Knowledge Pack · WP-V1.3 · inner-path layer mocked for design review · dark surfaces only · Candidate A — map-led</div>
+    </div>
+    <section style="max-width:820px;margin:40px auto 0;padding:0 4px">
+      <div style="background:linear-gradient(180deg,var(--surf,#0e141c),transparent);border:1px solid var(--line,rgba(255,255,255,.09));border-radius:16px;padding:24px 26px">
+        <div style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--inner,#e3b877);margin-bottom:11px">Round 2 depends on your read</div>
+        <div style="font-size:16px;color:var(--ink,#eef2f8);font-weight:600;margin-bottom:15px;letter-spacing:-.01em">This is a design candidate, not the product — three quick questions:</div>
+        <ol style="margin:0 0 20px;padding-left:20px;color:var(--mut,#a3b0be);font-size:14px;line-height:1.75">
+          <li>Which version made you want to <b style="color:var(--ink,#eef2f8)">try the practice</b>?</li>
+          <li>Where did you <b style="color:var(--ink,#eef2f8)">stop reading</b>?</li>
+          <li>Did the inner-path / &ldquo;bridge&rdquo; content feel <b style="color:var(--ink,#eef2f8)">honest, or odd</b>?</li>
+        </ol>
+        <a href="mailto:gt2vbbwwh8@privaterelay.appleid.com?subject=InnerState%20design-lab%20feedback%20%E2%80%94%20Candidate%20A&body=1)%20Which%20version%20made%20me%20want%20to%20try%20the%20practice%3A%0A%0A2)%20Where%20I%20stopped%20reading%3A%0A%0A3)%20Did%20the%20inner-path%20%2F%20bridge%20content%20feel%20honest%20or%20odd%3A%0A" style="display:inline-block;font-size:13.5px;font-weight:600;color:var(--inner,#e3b877);border:1px solid var(--inner,#e3b877);border-radius:22px;padding:9px 20px;text-decoration:none">Send feedback &rarr;</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const sections = ['s1','s2','s3','s4','s5'].map(id=>document.getElementById(id));
+  const stEls = [...document.querySelectorAll('.st')];
+  const prog = document.getElementById('prog');
+  function update(){
+    const mid = window.scrollY + window.innerHeight*0.42;
+    let active = 0;
+    sections.forEach((s,i)=>{ if(s.offsetTop <= mid) active = i; });
+    stEls.forEach((e,i)=>e.classList.toggle('on', i===active));
+    // progress line height across the 5 stations
+    const frac = (active + Math.min(1,Math.max(0,(mid - sections[active].offsetTop)/sections[active].offsetHeight)))/(sections.length-1);
+    prog.style.height = Math.min(100, frac*100) + '%';
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+</script>
+</body>
+</html>
